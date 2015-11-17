@@ -1,5 +1,7 @@
 var arDrone = require('ar-drone');
 var client  = arDrone.createClient();
+var Bancroft = require('./bancroft.js');
+var bancroft = new Bancroft();
 
 client.config('general:navdata_demo','FALSE');
 client.config('general:navdata_options',777060865);
@@ -18,6 +20,19 @@ module.exports.takeoff = function(){
 module.exports.land = function(){
     client.stop();
     client.land();
+}
+
+module.exports.gpsdata = function(){
+    bancroft.on('location', function (location) {
+        console.log(location);
+        return location;
+    });
+}
+
+module.exports.magnetodata = function(){
+    client.on('navdata', function(data){
+        return data.magneto;
+    });
 }
 
 module.exports.move = function(move){
