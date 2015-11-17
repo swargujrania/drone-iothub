@@ -6,9 +6,25 @@ var bancroft = new Bancroft();
 client.config('general:navdata_demo','FALSE');
 client.config('general:navdata_options',777060865);
 
+var gpsData;
+var magnetoData;
+
 client.on('navdata',function(data){
-  // console.log(data);
+  console.log(data);
+  magnetoData = data.magneto;
 });
+bancroft.on('location', function (location) {
+        console.log(location);
+        gpsData = location;
+    });
+    
+    
+// function getGpsData(){
+//     bancroft.on('location', function (location) {
+//         console.log(location);
+//         gpsData = location;
+//     });
+// }
 
 module.exports.takeoff = function(){
     client.takeoff()
@@ -22,17 +38,21 @@ module.exports.land = function(){
     client.land();
 }
 
-module.exports.gpsdata = function(){
-    bancroft.on('location', function (location) {
-        console.log(location);
-        return location;
-    });
-}
 
-module.exports.magnetodata = function(){
-    client.on('navdata', function(data){
-        return data.magneto;
-    });
+
+// module.exports.magnetodata = function(){
+//     client.on('navdata', function(data){
+//         return data.magneto;
+//     });
+// }
+
+module.exports.droneData = function()
+{
+    if(gpsData == null || magnetoData == null)
+    {
+        return {gps:0, magneto:0};
+    }
+    return {gps : gpsData, magneto: magnetoData};
 }
 
 module.exports.move = function(move){
