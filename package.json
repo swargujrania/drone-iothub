@@ -1,0 +1,16 @@
+{
+  "name": "drone-iothub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "swar",
+  "license": "ISC",
+  "dependencies": {
+    "azure-iot-common": "0.0.1",
+    "azure-iot-device": "^1.0.0-preview.6",
+    "azure-iothub": "^1.0.0-preview.6"
+  }
+}
