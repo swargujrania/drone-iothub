@@ -754,5 +754,65 @@ namespace DeviceExplorer
                 StopMonitoringFeedback();
             }
         }
+
+        private void thrustTrackBar_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void takeoffButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void landButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void leftButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void downButon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void upButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rightButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void forwardButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backwardButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clockwiseButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void counterclockwiseButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void flatTrimButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

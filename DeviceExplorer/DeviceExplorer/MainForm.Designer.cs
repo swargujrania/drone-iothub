@@ -93,7 +93,28 @@
             this.label5 = new System.Windows.Forms.Label();
             this.sendMessageToDeviceButton = new System.Windows.Forms.Button();
             this.textBoxMessage = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.autoPilotModePanel = new System.Windows.Forms.Panel();
+            this.autoPilotModeRadioButton = new System.Windows.Forms.RadioButton();
+            this.manualModePanel = new System.Windows.Forms.Panel();
+            this.flatTrimButton = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.Time = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.thrustTrackBar = new System.Windows.Forms.TrackBar();
+            this.counterclockwiseButton = new System.Windows.Forms.Button();
+            this.clockwiseButton = new System.Windows.Forms.Button();
+            this.backwardButton = new System.Windows.Forms.Button();
+            this.forwardButton = new System.Windows.Forms.Button();
+            this.rightButton = new System.Windows.Forms.Button();
+            this.leftButton = new System.Windows.Forms.Button();
+            this.downButon = new System.Windows.Forms.Button();
+            this.upButton = new System.Windows.Forms.Button();
+            this.landButton = new System.Windows.Forms.Button();
+            this.takeoffButton = new System.Windows.Forms.Button();
+            this.manualModeRadioButton = new System.Windows.Forms.RadioButton();
             this.ehStringToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -109,6 +130,10 @@
             this.groupBox1.SuspendLayout();
             this.tabMessagesToDevice.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.autoPilotModePanel.SuspendLayout();
+            this.manualModePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.thrustTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -120,6 +145,7 @@
             this.tabControl1.Controls.Add(this.tabManagement);
             this.tabControl1.Controls.Add(this.tabData);
             this.tabControl1.Controls.Add(this.tabMessagesToDevice);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -354,7 +380,7 @@
             this.tabManagement.Location = new System.Drawing.Point(4, 25);
             this.tabManagement.Name = "tabManagement";
             this.tabManagement.Padding = new System.Windows.Forms.Padding(3);
-            this.tabManagement.Size = new System.Drawing.Size(502, 601);
+            this.tabManagement.Size = new System.Drawing.Size(1183, 601);
             this.tabManagement.TabIndex = 0;
             this.tabManagement.Text = "Management";
             this.tabManagement.UseVisualStyleBackColor = true;
@@ -839,6 +865,258 @@
             this.textBoxMessage.Size = new System.Drawing.Size(1067, 22);
             this.textBoxMessage.TabIndex = 4;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.autoPilotModePanel);
+            this.tabPage1.Controls.Add(this.manualModePanel);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1183, 601);
+            this.tabPage1.TabIndex = 4;
+            this.tabPage1.Text = "Controls";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // autoPilotModePanel
+            // 
+            this.autoPilotModePanel.Controls.Add(this.autoPilotModeRadioButton);
+            this.autoPilotModePanel.Location = new System.Drawing.Point(0, 338);
+            this.autoPilotModePanel.Name = "autoPilotModePanel";
+            this.autoPilotModePanel.Size = new System.Drawing.Size(1183, 260);
+            this.autoPilotModePanel.TabIndex = 1;
+            // 
+            // autoPilotModeRadioButton
+            // 
+            this.autoPilotModeRadioButton.AutoSize = true;
+            this.autoPilotModeRadioButton.Location = new System.Drawing.Point(29, 3);
+            this.autoPilotModeRadioButton.Name = "autoPilotModeRadioButton";
+            this.autoPilotModeRadioButton.Size = new System.Drawing.Size(120, 20);
+            this.autoPilotModeRadioButton.TabIndex = 1;
+            this.autoPilotModeRadioButton.TabStop = true;
+            this.autoPilotModeRadioButton.Text = "Auto Pilot Mode";
+            this.autoPilotModeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // manualModePanel
+            // 
+            this.manualModePanel.Controls.Add(this.flatTrimButton);
+            this.manualModePanel.Controls.Add(this.label14);
+            this.manualModePanel.Controls.Add(this.Time);
+            this.manualModePanel.Controls.Add(this.label13);
+            this.manualModePanel.Controls.Add(this.thrustTrackBar);
+            this.manualModePanel.Controls.Add(this.counterclockwiseButton);
+            this.manualModePanel.Controls.Add(this.clockwiseButton);
+            this.manualModePanel.Controls.Add(this.backwardButton);
+            this.manualModePanel.Controls.Add(this.forwardButton);
+            this.manualModePanel.Controls.Add(this.rightButton);
+            this.manualModePanel.Controls.Add(this.leftButton);
+            this.manualModePanel.Controls.Add(this.downButon);
+            this.manualModePanel.Controls.Add(this.upButton);
+            this.manualModePanel.Controls.Add(this.landButton);
+            this.manualModePanel.Controls.Add(this.takeoffButton);
+            this.manualModePanel.Controls.Add(this.manualModeRadioButton);
+            this.manualModePanel.Location = new System.Drawing.Point(0, 59);
+            this.manualModePanel.Name = "manualModePanel";
+            this.manualModePanel.Size = new System.Drawing.Size(1183, 260);
+            this.manualModePanel.TabIndex = 0;
+            // 
+            // flatTrimButton
+            // 
+            this.flatTrimButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.flatTrimButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.flatTrimButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flatTrimButton.Location = new System.Drawing.Point(677, 166);
+            this.flatTrimButton.Name = "flatTrimButton";
+            this.flatTrimButton.Size = new System.Drawing.Size(101, 36);
+            this.flatTrimButton.TabIndex = 15;
+            this.flatTrimButton.Text = "Flat Trim";
+            this.flatTrimButton.UseVisualStyleBackColor = true;
+            this.flatTrimButton.Click += new System.EventHandler(this.flatTrimButton_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(418, 198);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(98, 21);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "Time (in ms)";
+            // 
+            // Time
+            // 
+            this.Time.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Time.Location = new System.Drawing.Point(416, 166);
+            this.Time.MaxLength = 20;
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(100, 29);
+            this.Time.TabIndex = 13;
+            this.Time.Text = "500";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(104, 205);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(122, 21);
+            this.label13.TabIndex = 12;
+            this.label13.Text = "Thrust (0.1 - 1.0)";
+            // 
+            // thrustTrackBar
+            // 
+            this.thrustTrackBar.Location = new System.Drawing.Point(56, 157);
+            this.thrustTrackBar.Name = "thrustTrackBar";
+            this.thrustTrackBar.Size = new System.Drawing.Size(218, 45);
+            this.thrustTrackBar.TabIndex = 11;
+            this.thrustTrackBar.Value = 1;
+            this.thrustTrackBar.Scroll += new System.EventHandler(this.thrustTrackBar_Scroll);
+            // 
+            // counterclockwiseButton
+            // 
+            this.counterclockwiseButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.counterclockwiseButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.counterclockwiseButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.counterclockwiseButton.Location = new System.Drawing.Point(984, 52);
+            this.counterclockwiseButton.Name = "counterclockwiseButton";
+            this.counterclockwiseButton.Size = new System.Drawing.Size(78, 56);
+            this.counterclockwiseButton.TabIndex = 10;
+            this.counterclockwiseButton.Text = "Counter Clockwise";
+            this.counterclockwiseButton.UseVisualStyleBackColor = true;
+            this.counterclockwiseButton.Click += new System.EventHandler(this.counterclockwiseButton_Click);
+            // 
+            // clockwiseButton
+            // 
+            this.clockwiseButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.clockwiseButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.clockwiseButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clockwiseButton.Location = new System.Drawing.Point(892, 52);
+            this.clockwiseButton.Name = "clockwiseButton";
+            this.clockwiseButton.Size = new System.Drawing.Size(78, 56);
+            this.clockwiseButton.TabIndex = 9;
+            this.clockwiseButton.Text = "Clockwise";
+            this.clockwiseButton.UseVisualStyleBackColor = true;
+            this.clockwiseButton.Click += new System.EventHandler(this.clockwiseButton_Click);
+            // 
+            // backwardButton
+            // 
+            this.backwardButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.backwardButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.backwardButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backwardButton.Location = new System.Drawing.Point(677, 83);
+            this.backwardButton.Name = "backwardButton";
+            this.backwardButton.Size = new System.Drawing.Size(101, 25);
+            this.backwardButton.TabIndex = 8;
+            this.backwardButton.Text = "<- Backward";
+            this.backwardButton.UseVisualStyleBackColor = true;
+            this.backwardButton.Click += new System.EventHandler(this.backwardButton_Click);
+            // 
+            // forwardButton
+            // 
+            this.forwardButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.forwardButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.forwardButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.forwardButton.Location = new System.Drawing.Point(677, 52);
+            this.forwardButton.Name = "forwardButton";
+            this.forwardButton.Size = new System.Drawing.Size(101, 25);
+            this.forwardButton.TabIndex = 7;
+            this.forwardButton.Text = "Forward ->";
+            this.forwardButton.UseVisualStyleBackColor = true;
+            this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
+            // 
+            // rightButton
+            // 
+            this.rightButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rightButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.rightButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rightButton.Location = new System.Drawing.Point(503, 83);
+            this.rightButton.Name = "rightButton";
+            this.rightButton.Size = new System.Drawing.Size(58, 25);
+            this.rightButton.TabIndex = 6;
+            this.rightButton.Text = "Right";
+            this.rightButton.UseVisualStyleBackColor = true;
+            this.rightButton.Click += new System.EventHandler(this.rightButton_Click);
+            // 
+            // leftButton
+            // 
+            this.leftButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.leftButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.leftButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leftButton.Location = new System.Drawing.Point(375, 83);
+            this.leftButton.Name = "leftButton";
+            this.leftButton.Size = new System.Drawing.Size(58, 25);
+            this.leftButton.TabIndex = 5;
+            this.leftButton.Text = "Left";
+            this.leftButton.UseVisualStyleBackColor = true;
+            this.leftButton.Click += new System.EventHandler(this.leftButton_Click);
+            // 
+            // downButon
+            // 
+            this.downButon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.downButon.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.downButon.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downButon.Location = new System.Drawing.Point(439, 83);
+            this.downButon.Name = "downButon";
+            this.downButon.Size = new System.Drawing.Size(58, 25);
+            this.downButon.TabIndex = 4;
+            this.downButon.Text = "Down";
+            this.downButon.UseVisualStyleBackColor = true;
+            this.downButon.Click += new System.EventHandler(this.downButon_Click);
+            // 
+            // upButton
+            // 
+            this.upButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.upButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.upButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.upButton.Location = new System.Drawing.Point(439, 52);
+            this.upButton.Name = "upButton";
+            this.upButton.Size = new System.Drawing.Size(58, 25);
+            this.upButton.TabIndex = 3;
+            this.upButton.Text = "Up";
+            this.upButton.UseVisualStyleBackColor = true;
+            this.upButton.Click += new System.EventHandler(this.upButton_Click);
+            // 
+            // landButton
+            // 
+            this.landButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.landButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.landButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.landButton.Location = new System.Drawing.Point(184, 62);
+            this.landButton.Name = "landButton";
+            this.landButton.Size = new System.Drawing.Size(75, 36);
+            this.landButton.TabIndex = 2;
+            this.landButton.Text = "Land";
+            this.landButton.UseVisualStyleBackColor = true;
+            this.landButton.Click += new System.EventHandler(this.landButton_Click);
+            // 
+            // takeoffButton
+            // 
+            this.takeoffButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.takeoffButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.takeoffButton.Font = new System.Drawing.Font("Segoe WP Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.takeoffButton.Location = new System.Drawing.Point(73, 62);
+            this.takeoffButton.Name = "takeoffButton";
+            this.takeoffButton.Size = new System.Drawing.Size(75, 36);
+            this.takeoffButton.TabIndex = 1;
+            this.takeoffButton.Text = "Take Off";
+            this.takeoffButton.UseVisualStyleBackColor = true;
+            this.takeoffButton.Click += new System.EventHandler(this.takeoffButton_Click);
+            // 
+            // manualModeRadioButton
+            // 
+            this.manualModeRadioButton.AutoSize = true;
+            this.manualModeRadioButton.Location = new System.Drawing.Point(29, 3);
+            this.manualModeRadioButton.Name = "manualModeRadioButton";
+            this.manualModeRadioButton.Size = new System.Drawing.Size(108, 20);
+            this.manualModeRadioButton.TabIndex = 0;
+            this.manualModeRadioButton.TabStop = true;
+            this.manualModeRadioButton.Text = "Manual Mode";
+            this.manualModeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -870,6 +1148,12 @@
             this.tabMessagesToDevice.ResumeLayout(false);
             this.tabMessagesToDevice.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.autoPilotModePanel.ResumeLayout(false);
+            this.autoPilotModePanel.PerformLayout();
+            this.manualModePanel.ResumeLayout(false);
+            this.manualModePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.thrustTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -941,6 +1225,27 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label deviceCountLabel;
         private System.Windows.Forms.Label totalLabel;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Panel autoPilotModePanel;
+        private System.Windows.Forms.Panel manualModePanel;
+        private System.Windows.Forms.RadioButton autoPilotModeRadioButton;
+        private System.Windows.Forms.RadioButton manualModeRadioButton;
+        private System.Windows.Forms.Button clockwiseButton;
+        private System.Windows.Forms.Button backwardButton;
+        private System.Windows.Forms.Button forwardButton;
+        private System.Windows.Forms.Button rightButton;
+        private System.Windows.Forms.Button leftButton;
+        private System.Windows.Forms.Button downButon;
+        private System.Windows.Forms.Button upButton;
+        private System.Windows.Forms.Button landButton;
+        private System.Windows.Forms.Button takeoffButton;
+        private System.Windows.Forms.Button counterclockwiseButton;
+        private System.Windows.Forms.TrackBar thrustTrackBar;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox Time;
+        private System.Windows.Forms.Button flatTrimButton;
     }
 }
 
