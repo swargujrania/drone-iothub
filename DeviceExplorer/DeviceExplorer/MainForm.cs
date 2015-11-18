@@ -116,6 +116,7 @@ namespace DeviceExplorer
 
                 string iotHubName = builder.HostName.Split('.')[0];
                 iotHubNameTextBox.Text = iotHubName;
+                iotHubNameControlPageTextBox.Text = iotHubName;
                 eventHubNameTextBoxForDataTab.Text = iotHubName;
                 
                 activeIoTHubConnectionString = connectionString;
@@ -146,10 +147,13 @@ namespace DeviceExplorer
             await registryManager.CloseAsync();
             this.deviceIDsComboBoxForEvent.DataSource = deviceIdsForEvent.OrderBy(c => c).ToList();
             this.deviceIDsComboBoxForCloudToDeviceMessage.DataSource = deviceIdsForC2DMessage.OrderBy(c => c).ToList();
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.DataSource = deviceIdsForC2DMessage.OrderBy(c => c).ToList();
+
 
             deviceIDsComboBoxForEvent.SelectedIndex = deviceSelectedIndexForEvent;
             deviceIDsComboBoxForCloudToDeviceMessage.SelectedIndex = deviceSelectedIndexForC2DMessage;
-        }
+            deviceIDsComboBoxForCloudToDeviceControlPageMessage.SelectedIndex = deviceSelectedIndexForC2DMessage;
+            }
         }
         private void persistSettingsToAppConfig()
         {
@@ -584,7 +588,7 @@ namespace DeviceExplorer
         {
             try
             {
-                if (e.TabPage == tabData || e.TabPage == tabMessagesToDevice)
+                if (e.TabPage == tabData || e.TabPage == tabMessagesToDevice || e.TabPage == tabControlsTab)
                 {
                     await updateDeviceIdsComboBoxes(runIfNullOrEmpty:false);
                 }
@@ -811,6 +815,16 @@ namespace DeviceExplorer
         }
 
         private void flatTrimButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deviceIDsComboBoxForCloudToDeviceMessage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iotHubNameTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

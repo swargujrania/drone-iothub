@@ -93,7 +93,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.sendMessageToDeviceButton = new System.Windows.Forms.Button();
             this.textBoxMessage = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControlsTab = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage = new System.Windows.Forms.ComboBox();
+            this.iotHubNameControlPageTextBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.autoPilotModePanel = new System.Windows.Forms.Panel();
             this.autoPilotModeRadioButton = new System.Windows.Forms.RadioButton();
             this.manualModePanel = new System.Windows.Forms.Panel();
@@ -130,7 +136,8 @@
             this.groupBox1.SuspendLayout();
             this.tabMessagesToDevice.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabControlsTab.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.autoPilotModePanel.SuspendLayout();
             this.manualModePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.thrustTrackBar)).BeginInit();
@@ -145,7 +152,7 @@
             this.tabControl1.Controls.Add(this.tabManagement);
             this.tabControl1.Controls.Add(this.tabData);
             this.tabControl1.Controls.Add(this.tabMessagesToDevice);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabControlsTab);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -726,7 +733,7 @@
             this.tabMessagesToDevice.Padding = new System.Windows.Forms.Padding(3);
             this.tabMessagesToDevice.Size = new System.Drawing.Size(1183, 601);
             this.tabMessagesToDevice.TabIndex = 2;
-            this.tabMessagesToDevice.Text = "Messages To Device";
+            this.tabMessagesToDevice.Text = "Output";
             this.tabMessagesToDevice.UseVisualStyleBackColor = true;
             // 
             // checkBoxMonitorFeedbackEndpoint
@@ -763,6 +770,7 @@
             this.deviceIDsComboBoxForCloudToDeviceMessage.Name = "deviceIDsComboBoxForCloudToDeviceMessage";
             this.deviceIDsComboBoxForCloudToDeviceMessage.Size = new System.Drawing.Size(1067, 24);
             this.deviceIDsComboBoxForCloudToDeviceMessage.TabIndex = 10;
+            this.deviceIDsComboBoxForCloudToDeviceMessage.SelectedIndexChanged += new System.EventHandler(this.deviceIDsComboBoxForCloudToDeviceMessage_SelectedIndexChanged);
             this.deviceIDsComboBoxForCloudToDeviceMessage.SelectionChangeCommitted += new System.EventHandler(this.deviceIDsComboBoxForMessage_SelectionChangeCommitted);
             // 
             // iotHubNameTextBox
@@ -774,6 +782,7 @@
             this.iotHubNameTextBox.ReadOnly = true;
             this.iotHubNameTextBox.Size = new System.Drawing.Size(1067, 22);
             this.iotHubNameTextBox.TabIndex = 9;
+            this.iotHubNameTextBox.TextChanged += new System.EventHandler(this.iotHubNameTextBox_TextChanged);
             // 
             // label2
             // 
@@ -867,22 +876,86 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.autoPilotModePanel);
-            this.tabPage1.Controls.Add(this.manualModePanel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1183, 601);
-            this.tabPage1.TabIndex = 4;
-            this.tabPage1.Text = "Controls";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabControlsTab.Controls.Add(this.panel1);
+            this.tabControlsTab.Controls.Add(this.autoPilotModePanel);
+            this.tabControlsTab.Controls.Add(this.manualModePanel);
+            this.tabControlsTab.Location = new System.Drawing.Point(4, 25);
+            this.tabControlsTab.Name = "tabPage1";
+            this.tabControlsTab.Padding = new System.Windows.Forms.Padding(3);
+            this.tabControlsTab.Size = new System.Drawing.Size(1183, 601);
+            this.tabControlsTab.TabIndex = 4;
+            this.tabControlsTab.Text = "Controls";
+            this.tabControlsTab.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.deviceIDsComboBoxForCloudToDeviceControlPageMessage);
+            this.panel1.Controls.Add(this.iotHubNameControlPageTextBox);
+            this.panel1.Controls.Add(this.label17);
+            this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Controls.Add(this.label18);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1183, 126);
+            this.panel1.TabIndex = 2;
+            // 
+            // deviceIDsComboBoxForCloudToDeviceControlPageMessage
+            // 
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.FormattingEnabled = true;
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.Location = new System.Drawing.Point(96, 43);
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.Name = "deviceIDsComboBoxForCloudToDeviceControlPageMessage";
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.Size = new System.Drawing.Size(1067, 24);
+            this.deviceIDsComboBoxForCloudToDeviceControlPageMessage.TabIndex = 15;
+            // 
+            // iotHubNameControlPageTextBox
+            // 
+            this.iotHubNameControlPageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.iotHubNameControlPageTextBox.Location = new System.Drawing.Point(96, 15);
+            this.iotHubNameControlPageTextBox.Name = "iotHubNameControlPageTextBox";
+            this.iotHubNameControlPageTextBox.ReadOnly = true;
+            this.iotHubNameControlPageTextBox.Size = new System.Drawing.Size(1067, 22);
+            this.iotHubNameControlPageTextBox.TabIndex = 14;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 18);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(59, 16);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "IoT Hub:";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(29, 90);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(128, 20);
+            this.checkBox2.TabIndex = 12;
+            this.checkBox2.Text = "Add Time Stamp";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 46);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(70, 16);
+            this.label18.TabIndex = 11;
+            this.label18.Text = "Device ID:";
             // 
             // autoPilotModePanel
             // 
             this.autoPilotModePanel.Controls.Add(this.autoPilotModeRadioButton);
-            this.autoPilotModePanel.Location = new System.Drawing.Point(0, 338);
+            this.autoPilotModePanel.Location = new System.Drawing.Point(0, 369);
             this.autoPilotModePanel.Name = "autoPilotModePanel";
-            this.autoPilotModePanel.Size = new System.Drawing.Size(1183, 260);
+            this.autoPilotModePanel.Size = new System.Drawing.Size(1183, 226);
             this.autoPilotModePanel.TabIndex = 1;
             // 
             // autoPilotModeRadioButton
@@ -914,9 +987,9 @@
             this.manualModePanel.Controls.Add(this.landButton);
             this.manualModePanel.Controls.Add(this.takeoffButton);
             this.manualModePanel.Controls.Add(this.manualModeRadioButton);
-            this.manualModePanel.Location = new System.Drawing.Point(0, 59);
+            this.manualModePanel.Location = new System.Drawing.Point(0, 132);
             this.manualModePanel.Name = "manualModePanel";
-            this.manualModePanel.Size = new System.Drawing.Size(1183, 260);
+            this.manualModePanel.Size = new System.Drawing.Size(1183, 234);
             this.manualModePanel.TabIndex = 0;
             // 
             // flatTrimButton
@@ -1148,7 +1221,9 @@
             this.tabMessagesToDevice.ResumeLayout(false);
             this.tabMessagesToDevice.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabControlsTab.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.autoPilotModePanel.ResumeLayout(false);
             this.autoPilotModePanel.PerformLayout();
             this.manualModePanel.ResumeLayout(false);
@@ -1225,7 +1300,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label deviceCountLabel;
         private System.Windows.Forms.Label totalLabel;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabControlsTab;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Panel autoPilotModePanel;
         private System.Windows.Forms.Panel manualModePanel;
@@ -1246,6 +1321,12 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox Time;
         private System.Windows.Forms.Button flatTrimButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox deviceIDsComboBoxForCloudToDeviceControlPageMessage;
+        private System.Windows.Forms.TextBox iotHubNameControlPageTextBox;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label18;
     }
 }
 
