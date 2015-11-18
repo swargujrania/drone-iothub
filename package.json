@@ -9,8 +9,10 @@
   "author": "swar",
   "license": "ISC",
   "dependencies": {
+    "ar-drone": "^0.3.3",
     "azure-iot-common": "0.0.1",
     "azure-iot-device": "^1.0.0-preview.6",
-    "azure-iothub": "^1.0.0-preview.6"
+    "azure-iothub": "^1.0.0-preview.6",
+    "bancroft": "0.0.12"
   }
 }
