@@ -1,30 +1,77 @@
-// var Haversine = require("./Haversine");
-// var Convert = require("./Conversion");
-// 
-// var a = {latitude:30.849635, longitude: -83.24559 };
-// var b = {latitude: 27.950575,longitude: -82.457178 };
-// var x = 16;
-// var y = -84;
-// var z = -84;
-// var decline = -0.718
-// console.log(Haversine);
-// console.log("distance = " + Haversine.HaversineDistance(a, b));
-// console.log("Bearing = " + (Haversine.InitBearing(a,b) + 360) % 360);
-// console.log(Haversine.DeviationFromNorth(x,y,z,decline));
-// 
-// 
-// console.log(Convert.ToSpeedTime(Haversine.HaversineDistance(a,b)));
-// console.log(Convert.ToRotationData(Haversine.DeviationFromNorth(x,y,z,decline)));
+var drone = require('./Drone');
+var droneClient = drone.Client;
+var droneToCloud = require('./DroneToCloud');
 
-var data = 0;
 
-setInterval(function()
-{
-	data = Math.random();
-	console.log("now: " + data);
-}, 200);
+function parseCommand(move){
+	if(move.type == 'left'){
+		droneClient.left(move.thrust);
+    	}
+    	if(move.type == 'right'){
+		droneClient.right(move.thrust);
+    	}
+    	if(move.type == 'up'){
+		droneClient.up(move.up);
+    	}
+    	if(move.type == 'down'){
+		droneClient.down(move.thrust);
+    	}
+    	if(move.type == 'front'){
+		droneClient.front(move.thrust);
+    	}
+    	if(move.type == 'back'){
+		droneClient.back(move.thrust);
+    	}
+   	if(move.type == 'left'){
+		droneClient.left(move.thrust);
+    	}
+   	if(move.type == 'clockwise'){
+		droneClient.clockwise(move.thrust);
+    	}
+    	if(move.type == 'counterclockwise'){
+		droneClient.counterClockwise(move.thrust);
+   	}
+	droneClient
+	.after(move.time, function(){
+		this.stop();
+	});
+}
 
-setInterval(function()
-{
+function parseOtherCommand(type){
+	if(type=='takeoff'){
+		droneClient.takeoff();
+	}
+	else if(type=='land'){
+		droneClient.land();
+	}
+	else if(type=='flattrim'){
+		droneClient.ftrim();
+	}
+	else if(type=='stop'){
+		droneClient.stop();
+	}
+}
+
+parseOtherCommand('takeoff');
+droneClient.after(5000, function(){
+	this.stop();
+	this.land();
+});
+
+//droneToCloud.sendData();
+
+var onReceive = function(data){
 	console.log(data);
-}, 3000);
+	
+	//if(data.type=="movement"){
+	//	parseCommand(data);
+	//}
+	//else if(data.type=="droneData"){
+		//
+	//}
+	//else{
+	//	parseOtherCommand(type.type);
+	//}
+}
+
+droneToCloud.startReceiving(onReceive);

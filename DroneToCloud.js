@@ -35,7 +35,7 @@ function waitForMessages (cb){
 	client.receive(function (err, msg, res) {
      		if (err) printResultFor('receive')(err, res);
      		else if(res.statusCode){
-			cb(msg);
+			cb(msg.getData());
        			console.log('Received data: ' + msg.getData());
       			client.complete(msg, printResultFor('complete'));
     		}
