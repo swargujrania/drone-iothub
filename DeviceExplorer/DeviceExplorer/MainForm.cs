@@ -1,7 +1,9 @@
-﻿using Microsoft.Azure.Devices;
+﻿using DeviceExplorer.PayloadModels;
+using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Common;
 using Microsoft.Azure.Devices.Common.Security;
 using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,8 @@ namespace DeviceExplorer
         private static string activeIoTHubConnectionString;
 
         private static string cloudToDeviceMessage;
+        private DroneControlMessage droneControlMsg;
+        private DroneDataMessage droneDataMsg;
 
         private static int deviceSelectedIndexForEvent = 0;
         private static int deviceSelectedIndexForC2DMessage = 0;
@@ -42,6 +46,9 @@ namespace DeviceExplorer
         public MainForm()
         {
             InitializeComponent();
+
+            droneControlMsg = new DroneControlMessage() { Type = "", Direction = "", Thrust = 0, TimeInMilliSecond = 0 };
+            droneDataMsg = new DroneDataMessage() { Type = "droneData", Gps = new GPSData() { Latitude = 0.0, Longitude = 0.0, Elevation = 0.0 }, Magneto = new MagnetoData() { MX = 0, MY = 0, MZ = 0, Declination = 0 } };
 
             // Extract settings from local config file
             try
@@ -117,10 +124,10 @@ namespace DeviceExplorer
                 string iotHubName = builder.HostName.Split('.')[0];
                 iotHubNameTextBox.Text = iotHubName;
                 eventHubNameTextBoxForDataTab.Text = iotHubName;
-                
+
                 activeIoTHubConnectionString = connectionString;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (!skipException)
                 {
@@ -132,24 +139,24 @@ namespace DeviceExplorer
         private async Task updateDeviceIdsComboBoxes(bool runIfNullOrEmpty = true)
         {
             if (!String.IsNullOrEmpty(activeIoTHubConnectionString) || runIfNullOrEmpty)
-        {
-            List<string> deviceIdsForEvent = new List<string>();
-            List<string> deviceIdsForC2DMessage = new List<string>();
-            RegistryManager registryManager = RegistryManager.CreateFromConnectionString(activeIoTHubConnectionString);
-
-            var devices = await registryManager.GetDevicesAsync(MAX_COUNT_OF_DEVICES);
-            foreach (var device in devices)
             {
-                deviceIdsForEvent.Add(device.Id);
-                deviceIdsForC2DMessage.Add(device.Id);
-            }
-            await registryManager.CloseAsync();
-            this.deviceIDsComboBoxForEvent.DataSource = deviceIdsForEvent.OrderBy(c => c).ToList();
-            this.deviceIDsComboBoxForCloudToDeviceMessage.DataSource = deviceIdsForC2DMessage.OrderBy(c => c).ToList();
+                List<string> deviceIdsForEvent = new List<string>();
+                List<string> deviceIdsForC2DMessage = new List<string>();
+                RegistryManager registryManager = RegistryManager.CreateFromConnectionString(activeIoTHubConnectionString);
 
-            deviceIDsComboBoxForEvent.SelectedIndex = deviceSelectedIndexForEvent;
-            deviceIDsComboBoxForCloudToDeviceMessage.SelectedIndex = deviceSelectedIndexForC2DMessage;
-        }
+                var devices = await registryManager.GetDevicesAsync(MAX_COUNT_OF_DEVICES);
+                foreach (var device in devices)
+                {
+                    deviceIdsForEvent.Add(device.Id);
+                    deviceIdsForC2DMessage.Add(device.Id);
+                }
+                await registryManager.CloseAsync();
+                this.deviceIDsComboBoxForEvent.DataSource = deviceIdsForEvent.OrderBy(c => c).ToList();
+                this.deviceIDsComboBoxForCloudToDeviceMessage.DataSource = deviceIdsForC2DMessage.OrderBy(c => c).ToList();
+
+                deviceIDsComboBoxForEvent.SelectedIndex = deviceSelectedIndexForEvent;
+                deviceIDsComboBoxForCloudToDeviceMessage.SelectedIndex = deviceSelectedIndexForC2DMessage;
+            }
         }
         private void persistSettingsToAppConfig()
         {
@@ -263,7 +270,7 @@ namespace DeviceExplorer
             var devicesList = await devicesProcessor.GetDevices();
             devicesList.Sort();
             var sortableDevicesBindingList = new SortableBindingList<DeviceEntity>(devicesList);
-            
+
             devicesGridView.DataSource = sortableDevicesBindingList;
             devicesGridView.ReadOnly = true;
             devicesGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -529,7 +536,7 @@ namespace DeviceExplorer
             {
                 if (checkBox1.Checked)
                 {
-                    if(String.IsNullOrEmpty(textBoxMessage.Text))
+                    if (String.IsNullOrEmpty(textBoxMessage.Text))
                     {
                         cloudToDeviceMessage = DateTime.Now.ToLocalTime().ToString();
                     }
@@ -580,13 +587,166 @@ namespace DeviceExplorer
         }
         #endregion
 
+        #region Control Tab
+        private async void SendMessageToCloud(string message)
+        {
+            try
+            {            
+
+                ServiceClient serviceClient = ServiceClient.CreateFromConnectionString(activeIoTHubConnectionString);
+
+                var serviceMessage = new Microsoft.Azure.Devices.Message(Encoding.ASCII.GetBytes(message));
+                serviceMessage.Ack = DeliveryAcknowledgement.Full;
+                serviceMessage.MessageId = Guid.NewGuid().ToString();
+                await serviceClient.SendAsync(deviceIDsComboBoxForCloudToDeviceMessage.SelectedItem.ToString(), serviceMessage);
+
+                messagesTextBox.Text += $"Sent to Device ID: [{deviceIDsComboBoxForCloudToDeviceMessage.SelectedItem.ToString()}], Message:\"{message}\", message Id: {serviceMessage.MessageId}\n";
+
+                await serviceClient.CloseAsync();
+
+            }
+            catch (Exception ex)
+            {
+                using (new CenterDialog(this))
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void thrustTrackBar_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void takeoffButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "takeoff";
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+        }
+
+        private void landButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "land";
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+
+        }
+
+        private void leftButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "left";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void downButon_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "down";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void upButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "up";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void rightButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "right";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void forwardButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "forward";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void backwardButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "backward";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void clockwiseButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "clock";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void counterclockwiseButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "move";
+            droneControlMsg.Direction = "counterClock";
+            droneControlMsg.Thrust = Double.Parse(thrustTrackBar.Value.ToString())/10;
+            droneControlMsg.TimeInMilliSecond = Int32.Parse(Time.Text);
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void flatTrimButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "flatTrim";
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            droneControlMsg.Type = "stop";
+            string payload = JsonConvert.SerializeObject(droneControlMsg);
+            SendMessageToCloud(payload);
+            
+        }
+
+        #endregion
+
         private async void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             try
             {
                 if (e.TabPage == tabData || e.TabPage == tabMessagesToDevice)
                 {
-                    await updateDeviceIdsComboBoxes(runIfNullOrEmpty:false);
+                    await updateDeviceIdsComboBoxes(runIfNullOrEmpty: false);
                 }
 
                 if (e.TabPage == tabManagement)
@@ -755,64 +915,5 @@ namespace DeviceExplorer
             }
         }
 
-        private void thrustTrackBar_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void takeoffButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void landButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void leftButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void downButon_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void upButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rightButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void forwardButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void backwardButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clockwiseButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void counterclockwiseButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flatTrimButton_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
