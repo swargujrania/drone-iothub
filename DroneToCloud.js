@@ -20,6 +20,29 @@ module.exports.sendData = function()
 	client.sendEvent(message, printResultFor('send'));
 }
 
+var isWaiting = false;
+
+module.exports.startReceiving = function(cb){
+	setInterval(function () { 
+   	if (!isWaiting) 
+		waitForMessages(cb); 
+ 	}, 200); 
+}
+
+
+function waitForMessages (cb){
+    isWaiting = true;	
+	client.receive(function (err, msg, res) {
+     		if (err) printResultFor('receive')(err, res);
+     		else if(res.statusCode){
+			cb(msg.getData());
+       			console.log('Received data: ' + msg.getData());
+      			client.complete(msg, printResultFor('complete'));
+    		}
+        isWaiting = false;
+   	});
+}
+
 function printResultFor(op) {
   return function printResult(err, res) {
     if (err) console.log(op + ' error: ' + err.toString());
