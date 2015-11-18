@@ -61,6 +61,10 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CenterDialog.cs" />
+    <Compile Include="PayloadModels\DroneControlMessage.cs" />
+    <Compile Include="PayloadModels\DroneDataMessage.cs" />
+    <Compile Include="PayloadModels\GPSData.cs" />
+    <Compile Include="PayloadModels\MagnetoData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyComparer.cs" />
