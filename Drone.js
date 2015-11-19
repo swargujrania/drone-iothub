@@ -12,21 +12,15 @@ var magnetoData;
 module.exports.Client = client;
 
 client.on('navdata',function(data){
-  console.log(data);
+  //console.log(data);
   magnetoData = data.magneto;
 });
 bancroft.on('location', function (location) {
-        console.log(location);
+       // console.log(location);
         gpsData = location;
     });
     
-    
-// function getGpsData(){
-//     bancroft.on('location', function (location) {
-//         console.log(location);
-//         gpsData = location;
-//     });
-// }
+   
 
 module.exports.takeoff = function(){
     client.takeoff()
@@ -40,20 +34,8 @@ module.exports.land = function(){
     client.land();
 }
 
-
-
-// module.exports.magnetodata = function(){
-//     client.on('navdata', function(data){
-//         return data.magneto;
-//     });
-// }
-
 module.exports.droneData = function()
 {
-    if(gpsData == null || magnetoData == null)
-    {
-        return {gps:0, magneto:0};
-    }
     return {gps : gpsData, magneto: magnetoData};
 }
 

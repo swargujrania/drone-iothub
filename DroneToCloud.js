@@ -1,6 +1,6 @@
 var settings = require("./Settings");
 var device = require('azure-iot-device');
-//var drone = require('Drone');
+var drone = require('./Drone');
 
 var configData = settings.getConfigData();
 console.log(configData);
@@ -14,6 +14,7 @@ var data = {gps : gpsData, magneto: magnetoData};
 
 module.exports.sendData = function()
 {
+	data = drone.droneData();
 	var message = new device.Message(JSON.stringify(data));
 	message.properties.add('Timestamp', new Date());
 	console.log("Sending message: " + message.getData());

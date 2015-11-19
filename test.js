@@ -16,10 +16,10 @@ function parseCommand(move){
     	if(move.Direction == 'down'){
 		droneClient.down(move.thrust);
     	}
-    	if(move.Direction == 'front'){
+    	if(move.Direction == 'forward'){
 		droneClient.front(move.thrust);
     	}
-    	if(move.Direction== 'back'){
+    	if(move.Direction== 'backward'){
 		droneClient.back(move.thrust);
     	}
    	if(move.Direction == 'left'){
@@ -28,7 +28,7 @@ function parseCommand(move){
    	if(move.Direction == 'clock'){
 		droneClient.clockwise(move.thrust);
     	}
-    	if(move.Direction == 'counterclock'){
+    	if(move.Direction == 'counterClock'){
 		droneClient.counterClockwise(move.thrust);
    	}
 	droneClient
@@ -53,13 +53,6 @@ function parseOtherCommand(type){
 	}
 }
 
-parseOtherCommand('takeoff');
-droneClient.after(5000, function(){
-	this.stop();
-	this.land();
-});
-
-//droneToCloud.sendData();
 
 var onReceive = function(data){
 	console.log(data);
